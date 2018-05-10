@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native'
-import SecurePinInput from './src/SecurePinInput'
+import App from './src/App'
 
-AppRegistry.registerComponent('SecurePin', () => SecurePinInput)
+AppRegistry.registerComponent('SecurePin', () => App)

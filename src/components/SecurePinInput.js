@@ -7,39 +7,17 @@
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  Text,
   View,
   Keyboard,
 } from 'react-native'
 import PropTypes from 'prop-types'
-import PinIcon from './components/common/PinIcon'
-import DigitInput from './components/common/DigitInput'
+import { PinIcon, DigitInput } from './common/index'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  digit: {
-    fontSize: 20,
-    borderBottomColor: 'blue',
-    borderBottomWidth: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    maxWidth: 0,
-    textAlign: 'center',
   },
   digits: {
     display: 'flex',
@@ -105,9 +83,6 @@ export default class SecurePinInput extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
         <View style={styles.digits}>
           {this.state.digits.map((value, index) => (
             <DigitInput
@@ -125,6 +100,7 @@ export default class SecurePinInput extends Component {
               key={`pin#${index}`}
               index={index}
               checked={this.state.digits[index] !== ''}
+              style={{ marginRight: 5 }}
             />))}
         </View>
       </View>
@@ -140,7 +116,6 @@ SecurePinInput.propTypes = {
 
 SecurePinInput.defaultProps = {
   length: 6,
-  onInputFinish: () => console.info('finish!'),
+  onInputFinish: result => console.info(`input has been finished. Pin is ${result}`),
   clearOnFinish: true,
 }
-

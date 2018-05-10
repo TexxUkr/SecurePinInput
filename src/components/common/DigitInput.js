@@ -56,4 +56,4 @@ DigitInput.defaultProps = {
   style: {},
 }
 
-export default DigitInput
+export { DigitInput }
