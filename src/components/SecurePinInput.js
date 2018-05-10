@@ -37,7 +37,7 @@ export default class SecurePinInput extends Component {
   }
 
   componentDidUpdate() {
-    console.info('state', this.state)
+    // console.info('state', this.state)
     this.checkIfFinish() && this.onFinish()
   }
 

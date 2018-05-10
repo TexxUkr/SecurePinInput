@@ -30,7 +30,7 @@ PinIcon.propTypes = {
 PinIcon.defaultProps = {
   checked: false,
   color: 'black',
-  size: 30,
+  size: 25,
   iconNameChecked: 'ios-radio-button-on',
   iconNameUnchecked: 'ios-radio-button-off',
   style: {},

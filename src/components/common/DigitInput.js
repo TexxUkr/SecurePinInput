@@ -1,14 +1,15 @@
 import React from 'react'
-import { TextInput, ViewPropTypes } from 'react-native'
+import { TextInput, ViewPropTypes, Platform } from 'react-native'
 import PropTypes from 'prop-types'
 
 const style = {
-  fontSize: 22,
-  borderBottomColor: 'blue',
-  borderBottomWidth: 1,
-  marginLeft: 5,
-  marginRight: 5,
-  minWidth: 15,
+  fontSize: 0,
+  width: 0,
+  height: 0,
+  paddingBottom: 0,
+  paddingTop: 0,
+  paddingLeft: 0,
+  paddingRight: 0,
   textAlign: 'center',
 }
 
@@ -37,7 +38,15 @@ class DigitInput extends React.Component {
         style={{ ...style, ...this.props.style }}
         value={this.props.value}
         onKeyPress={(input) => {
+          console.info(input.nativeEvent.key)
           this.props.digitChanged(this.props.index, input.nativeEvent.key)
+        }}
+        onChangeText={(text) => {
+          // onKeyPress does not work with numeric keyboard on android so duplication needs
+          if (Platform.OS === 'android') {
+          console.info(text)
+          this.props.digitChanged(this.props.index, text)
+          }
         }}
         ref={(component) => { this.compnent = component }}
       />)
