@@ -6,11 +6,12 @@
 
 import React, { Component } from 'react'
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
+  Keyboard,
 } from 'react-native'
+import PropTypes from 'prop-types'
 import PinIcon from './components/common/PinIcon'
 import DigitInput from './components/common/DigitInput'
 
@@ -49,21 +50,22 @@ const styles = StyleSheet.create({
 })
 
 
-export default class App extends Component {
-  constructor() {
-    super()
+export default class SecurePinInput extends Component {
+  constructor(props) {
+    super(props)
     this.state = {
-      digits: ['', '', '', '', '', ''],
-      focus: 0,
+      digits: (new Array(props.length)).fill(''),
     }
   }
 
-  onDigitInput = (index, digit) => {
-    console.info('onDigitInput here, digit is:', index, ' ', digit)
+  componentDidUpdate() {
+    console.info('state', this.state)
+    this.checkIfFinish() && this.onFinish()
+  }
 
+  onDigitInput = (index, digit) => {
     if (digit === 'Backspace') {
       this.setState((prevState) => {
-        console.info('backspace', prevState)
         const newDigits = [...prevState.digits]
         if (newDigits[index] === '') {
           newDigits[index - 1] = ''
@@ -77,20 +79,30 @@ export default class App extends Component {
     }
 
     if (digit !== 'Backspace' && digit !== 'Enter') {
-      this.setState((prevState) => {
-        const newDigits = [...prevState.digits]
-        newDigits[index] = digit
-        return {
-          digits: [...newDigits],
-        }
-      })
+      if (this.state.digits.some(elem => elem === '')) {
+        this.setState((prevState) => {
+          const newDigits = [...prevState.digits]
+          newDigits[index] = digit
+          return {
+            digits: [...newDigits],
+          }
+        })
+      }
     }
   }
 
   getFocus = () => this.state.digits.findIndex(value => value === '')
+  checkIfFinish = () => this.state.digits.every(elem => elem !== '')
+  onFinish = () => {
+    Keyboard.dismiss()
+    this.props.onInputFinish(this.state.digits)
+    if (this.props.clearOnFinish) setTimeout(() => this.clearInput(), 1000)
+  }
+  clearInput = () => this.setState({
+    digits: new Array(this.props.length).fill(''),
+  })
 
   render() {
-    console.info('this state is', this.state)
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -104,7 +116,7 @@ export default class App extends Component {
               value={this.state.digits[index]}
               focus={this.getFocus() === index}
               digitChanged={this.onDigitInput}
-            // style={{ maxWidth: 0, minWidth: 0, maxHeight: 0 }}
+              style={{ maxWidth: 0, minWidth: 0, maxHeight: 0 }}
             />))}
         </View>
         <View style={styles.digits}>
@@ -118,5 +130,17 @@ export default class App extends Component {
       </View>
     )
   }
+}
+
+SecurePinInput.propTypes = {
+  length: PropTypes.number,
+  onInputFinish: PropTypes.func,
+  clearOnFinish: PropTypes.bool,
+}
+
+SecurePinInput.defaultProps = {
+  length: 6,
+  onInputFinish: () => console.info('finish!'),
+  clearOnFinish: true,
 }
 

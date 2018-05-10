@@ -37,7 +37,6 @@ class DigitInput extends React.Component {
         style={{ ...style, ...this.props.style }}
         value={this.props.value}
         onKeyPress={(input) => {
-          console.info('onKeyPress here', input.nativeEvent.key)
           this.props.digitChanged(this.props.index, input.nativeEvent.key)
         }}
         ref={(component) => { this.compnent = component }}
