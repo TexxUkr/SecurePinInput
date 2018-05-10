@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginLeft: 5,
     marginRight: 5,
-    minWidth: 15,
+    maxWidth: 0,
     textAlign: 'center',
   },
   digits: {
@@ -59,27 +59,35 @@ export default class App extends Component {
   }
 
   onDigitInput = (index, digit) => {
-    console.info('onDigitInout here, digit is:', digit)
-    if (digit !== '') {
+    console.info('onDigitInput here, digit is:', index, ' ', digit)
+
+    if (digit === 'Backspace') {
       this.setState((prevState) => {
+        console.info('backspace', prevState)
         const newDigits = [...prevState.digits]
-        newDigits[prevState.focus] = digit
+        if (newDigits[index] === '') {
+          newDigits[index - 1] = ''
+        } else {
+          newDigits[index] = ''
+        }
         return {
           digits: [...newDigits],
-          focus: prevState.focus === (prevState.digits.length - 1) ? prevState.focus : prevState.focus + 1,
         }
       })
-    } else {
+    }
+
+    if (digit !== 'Backspace' && digit !== 'Enter') {
       this.setState((prevState) => {
         const newDigits = [...prevState.digits]
-        newDigits[prevState.focus] = ''
+        newDigits[index] = digit
         return {
           digits: [...newDigits],
-          focus: prevState.focus === 0 ? 0 : prevState.focus - 1,
         }
       })
     }
   }
+
+  getFocus = () => this.state.digits.findIndex(value => value === '')
 
   render() {
     console.info('this state is', this.state)
@@ -94,8 +102,9 @@ export default class App extends Component {
               key={`digit#${index}`}
               index={index}
               value={this.state.digits[index]}
-              focus={this.state.focus === index}
+              focus={this.getFocus() === index}
               digitChanged={this.onDigitInput}
+            // style={{ maxWidth: 0, minWidth: 0, maxHeight: 0 }}
             />))}
         </View>
         <View style={styles.digits}>

@@ -1,17 +1,15 @@
 import React from 'react'
-import { TextInput } from 'react-native'
+import { TextInput, ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 
-const styles = {
-  digit: {
-    fontSize: 22,
-    borderBottomColor: 'blue',
-    borderBottomWidth: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    minWidth: 15,
-    textAlign: 'center',
-  },
+const style = {
+  fontSize: 22,
+  borderBottomColor: 'blue',
+  borderBottomWidth: 1,
+  marginLeft: 5,
+  marginRight: 5,
+  minWidth: 15,
+  textAlign: 'center',
 }
 
 class DigitInput extends React.Component {
@@ -36,9 +34,12 @@ class DigitInput extends React.Component {
         underlineColorAndroid="transparent"
         keyboardType="numeric"
         maxLength={1}
-        style={styles.digit}
+        style={{ ...style, ...this.props.style }}
         value={this.props.value}
-        onChangeText={(input) => { this.props.digitChanged(this.props.index, input) }}
+        onKeyPress={(input) => {
+          console.info('onKeyPress here', input.nativeEvent.key)
+          this.props.digitChanged(this.props.index, input.nativeEvent.key)
+        }}
         ref={(component) => { this.compnent = component }}
       />)
   }
@@ -49,6 +50,11 @@ DigitInput.propTypes = {
   value: PropTypes.string.isRequired,
   digitChanged: PropTypes.func.isRequired,
   focus: PropTypes.bool.isRequired,
+  style: ViewPropTypes.style,
+}
+
+DigitInput.defaultProps = {
+  style: {},
 }
 
 export default DigitInput
