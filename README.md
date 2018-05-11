@@ -2,7 +2,29 @@
 
 
 # SecurePinInput
-react native application with fully secured pin code validation
+Description:
+  react native component with fully secured pin code validation
+  renders a view with secure pin input that opens a keyboard to input pin values
+  on finish component calls a callback that could be used by parent component
+
+Reference:
+  Props:
+  
+    length
+    Type: Number
+    Default: 6
+    Number of pins to input
+
+    onInputFinish
+    Type: Function
+    Default: result => console.info(`input has been finished. Pin is ${result}`),
+    Callback on all the pin input which arg is an array of pin values entered
+
+    clearOnFinish
+    Type: Boolean
+    Default: true
+    if true pin value entered is cleared on last pin value input
+}
 
 
 # BUGS that needs to be fixed in RN to use component
