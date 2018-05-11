@@ -1,4 +1,4 @@
-<a href="https://user-images.githubusercontent.com/19600091/39897887-f9c8a024-54bc-11e8-8e1f-1b43921d4de9.gif" img src="https://user-images.githubusercontent.com/19600091/39897887-f9c8a024-54bc-11e8-8e1f-1b43921d4de9.gif" title="made at imgflip.com"/></a>
+<a href="https://user-images.githubusercontent.com/19600091/39897887-f9c8a024-54bc-11e8-8e1f-1b43921d4de9.gif"><img src="https://user-images.githubusercontent.com/19600091/39897887-f9c8a024-54bc-11e8-8e1f-1b43921d4de9.gif" title="made at imgflip.com"/></a>
 
 
 # SecurePinInput
