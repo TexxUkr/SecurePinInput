@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const App = props => (
+const App = () => (
   <View style={styles.container}>
     <View style={styles.message}>
       <Text> We sent 6 digit code to </Text>

@@ -35,7 +35,6 @@ export default class SecurePinInput extends Component {
       digits: (new Array(props.length)).fill(''),
     }
   }
-
   componentDidUpdate() {
     // console.info('state', this.state)
     this.checkIfFinish() && this.onFinish()

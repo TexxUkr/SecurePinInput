@@ -27,7 +27,6 @@ class DigitInput extends React.Component {
   }
 
   render() {
-    // console.info(`DigitInput is here. id:${props.index} focus:${props.focus}`)
     return (
       <TextInput
         autoCorrect={false}
@@ -35,19 +34,30 @@ class DigitInput extends React.Component {
         underlineColorAndroid="transparent"
         keyboardType="numeric"
         maxLength={1}
+        blurOnSubmit={false} // ignore enter on android keyboard
         style={{ ...style, ...this.props.style }}
         value={this.props.value}
         onKeyPress={(input) => {
-          console.info(input.nativeEvent.key)
+          // console.info(input.nativeEvent.key)
           this.props.digitChanged(this.props.index, input.nativeEvent.key)
         }}
         onChangeText={(text) => {
           // onKeyPress does not work with numeric keyboard on android so duplication needs
           if (Platform.OS === 'android') {
-          console.info(text)
-          this.props.digitChanged(this.props.index, text)
+            this.props.digitChanged(this.props.index, text)
           }
         }}
+
+        /*
+        onSubmitEditing={(input) => {
+          // android keyboard 'enter' interception
+          if (Platform.OS === 'android') {
+            console.info('onSubmit', input.nativeEvent)
+            this.setState(() => ({ focused: false }))
+          }
+        }}
+        */
+
         ref={(component) => { this.compnent = component }}
       />)
   }
