@@ -5,3 +5,7 @@
 react native application with fully secured pin code validation
 
 
+# BUGS that needs to be fixed in RN to use component
+https://github.com/humandx/react-native/commit/442f97bee0e6da546d848e45a2bedfa436b146c8
+
+
